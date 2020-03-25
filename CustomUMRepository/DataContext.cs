@@ -1,14 +1,9 @@
-﻿using CustomUserManagerRepository.Model;
+﻿using System;
+using System.Data;
+using System.Linq;
+using CustomUserManagerRepository.Model;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CustomUserManagerRepository
 {
@@ -24,7 +19,6 @@ namespace CustomUserManagerRepository
         public DataContext(DbContextOptions<DataContext> options)
          : base(options)
         {
-
         }
 
         public DbSet<User> User { get; set; }
@@ -36,8 +30,7 @@ namespace CustomUserManagerRepository
             var pUName = new SqlParameter("@UName", SqlDbType.NVarChar) { Value = username };
             var pPassword = new SqlParameter("@Password", SqlDbType.NVarChar) { Value = password };
             return LoginResult.FromSqlRaw("[CustomUM].[GetLogin] @UName, @Password", pUName, pPassword).AsEnumerable<LoginResult>().FirstOrDefault<LoginResult>().PasswordMatch;
-         }
-
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -73,7 +66,5 @@ namespace CustomUserManagerRepository
                 .Entity<LoginResult>()
                 .HasNoKey();
         }
-
-
     }
 }

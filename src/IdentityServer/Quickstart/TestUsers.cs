@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-
-using IdentityModel;
-using IdentityServer4.Test;
 using System.Collections.Generic;
 using System.Security.Claims;
+using IdentityModel;
+using IdentityServer4.Test;
 
 namespace IdentityServer
 {
@@ -13,8 +12,8 @@ namespace IdentityServer
     {
         public static List<TestUser> Users = new List<TestUser>
         {
-            new TestUser{SubjectId = "slawton0", Username = "slawton0", Password = "K2pass!", 
-                Claims = 
+            new TestUser{SubjectId = "slawton0", Username = "slawton0", Password = "K2pass!",
+                Claims =
                 {
                     new Claim(JwtClaimTypes.Name, "Alice Smith"),
                     new Claim(JwtClaimTypes.GivenName, "Alice"),
@@ -25,8 +24,8 @@ namespace IdentityServer
                     new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json)
                 }
             },
-            new TestUser{SubjectId = "bpointin1", Username = "bpointin1", Password = "K2pass!", 
-                Claims = 
+            new TestUser{SubjectId = "bpointin1", Username = "bpointin1", Password = "K2pass!",
+                Claims =
                 {
                     new Claim(JwtClaimTypes.Name, "Bob Smith"),
                     new Claim(JwtClaimTypes.GivenName, "Bob"),
@@ -38,7 +37,6 @@ namespace IdentityServer
                     new Claim("location", "somewhere")
                 }
             }
-           
         };
     }
 }

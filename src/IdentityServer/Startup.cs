@@ -1,19 +1,17 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using IdentityServer.CustomUserManager;
+using System.Reflection;
+using AutoMapper;
+using CustomUserManagerRepository;
 using CustomUserManagerRepository.Interfaces;
+using IdentityServer.CustomUserManager;
 using IdentityServer4.Services;
-using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CustomUserManagerRepository;
-using System.Reflection;
-using AutoMapper;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace IdentityServer
 {
@@ -47,10 +45,8 @@ namespace IdentityServer
                 options.AddProfile<CustomUserManagerRepository.Mappings.AutoMapperProfile>();
             }, new Assembly[] { });
 
-
             services.AddSingleton<IConnectionProvider, ConnectionProvider>();
             services.AddSingleton<IRepositoryFactory, RepositoryFactory>();
-
 
             services.AddTransient(s =>
             {
@@ -58,8 +54,8 @@ namespace IdentityServer
                 return f.GetUserRepository();
             });
 
-           // services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
-             services.AddTransient<IProfileService, ProfileService>();
+            // services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
+            services.AddTransient<IProfileService, ProfileService>();
         }
 
         public void Configure(IApplicationBuilder app)

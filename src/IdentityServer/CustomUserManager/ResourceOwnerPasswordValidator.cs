@@ -1,16 +1,11 @@
-﻿using IdentityModel;
-using CustomUserManagerRepository.Interfaces;
-using IdentityServer4.Validation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
+using CustomUserManagerRepository.Interfaces;
 using IdentityServer4.Models;
-using CustomUserManagerRepository.Dto;
+using IdentityServer4.Validation;
 
 namespace IdentityServer.CustomUserManager
 {
@@ -24,14 +19,14 @@ namespace IdentityServer.CustomUserManager
             _userRepository = userRepository;
         }
 
-        static string ComputeHash(string rawData)
+        private static string ComputeHash(string rawData)
         {
             using (SHA512 hash = SHA512.Create())
             {
-                // ComputeHash - returns byte array  
+                // ComputeHash - returns byte array
                 byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
 
-                // Convert byte array to a string   
+                // Convert byte array to a string
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {
@@ -70,6 +65,5 @@ namespace IdentityServer.CustomUserManager
                 context.Result = new GrantValidationResult(TokenRequestErrors.InvalidGrant, "Invalid username or password");
             }
         }
-
     }
 }

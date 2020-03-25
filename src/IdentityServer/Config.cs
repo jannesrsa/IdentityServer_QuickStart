@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using System.Linq;
 using IdentityServer4.Models;
 using Microsoft.Extensions.Configuration;
 
@@ -9,39 +10,35 @@ namespace IdentityServer
 {
     public class Config
     {
-        private readonly List<Client> _clients = new List<Client>();
-
         private readonly IConfiguration _config;
 
         public Config(IConfiguration config)
         {
             _config = config;
 
-            var clients = new List<Client>();
             IConfigurationSection configClients = _config.GetSection("Clients");
-            foreach (var configClient in configClients.GetChildren())
+            var configClient = configClients.GetChildren().FirstOrDefault();
+
+            var siteUri = configClient.GetValue<string>("SiteUri").TrimEnd('/');
+            DynamicClientStore.Client = new Client
             {
-                var siteUri = configClient.GetValue<string>("SiteUri").TrimEnd('/');
-                this.Clients.Add(new Client
-                {
-                    ClientId = configClient.GetValue<string>("ClientId"),
-                    AllowedGrantTypes = { configClient.GetValue<string>("AllowedGrantTypes") },
-                    RedirectUris =
+                ClientId = configClient.GetValue<string>("ClientId"),
+                AllowedGrantTypes = { configClient.GetValue<string>("AllowedGrantTypes") },
+                RedirectUris =
                         {
                             $"{siteUri}/designer/account/signin-oidc",
                             $"{siteUri}/runtime/account/signin-oidc"
                         },
-                    PostLogoutRedirectUris =
+                PostLogoutRedirectUris =
                         {
                             $"{siteUri}/designer/account/signout-callback-oidc",
                             $"{siteUri}/runtime/account/signout-callback-oidc"
                         },
-                    AllowedScopes = configClient.GetSection("AllowedScopes").Get<string[]>(),
-                    RequireConsent = false,
-                    AlwaysSendClientClaims = true,
-                    IdentityTokenLifetime = GetIdentityTokenLifetime(configClient)
-                });
-            }
+                AllowedScopes = configClient.GetSection("AllowedScopes").Get<string[]>(),
+                RequireConsent = false,
+                AlwaysSendClientClaims = true,
+                IdentityTokenLifetime = configClient.GetValue<int>("IdentityTokenLifetime")
+            };
         }
 
         public IEnumerable<ApiResource> Apis =>
@@ -50,14 +47,6 @@ namespace IdentityServer
             new ApiResource("api1", "My API")
         };
 
-        public List<Client> Clients
-        {
-            get
-            {
-                return _clients;
-            }
-        }
-
         public IEnumerable<IdentityResource> Ids =>
             new List<IdentityResource>
             {
@@ -65,11 +54,6 @@ namespace IdentityServer
                 new IdentityResources.Profile(),
                 new IdentityResources.Email()
             };
-
-        private static int GetIdentityTokenLifetime(IConfigurationSection configClient)
-        {
-            return configClient.GetValue<int>("IdentityTokenLifetime");
-        }
 
         //     var clients = new List<Client>();
         //    return clients;

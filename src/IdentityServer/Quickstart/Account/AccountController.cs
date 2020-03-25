@@ -68,6 +68,7 @@ namespace IdentityServer
                 return RedirectToAction("Challenge", "External", new { provider = vm.ExternalLoginScheme, returnUrl });
             }
 
+            vm.IdentityTokenLifetime = DynamicClientStore.Client.IdentityTokenLifetime;
             return View(vm);
         }
 
@@ -131,6 +132,8 @@ namespace IdentityServer
                 var canLogin = await _users.FindCheckUserLoginAsync(model.Username, model.Password);
                 if (canLogin)
                 {
+                    DynamicClientStore.Client.IdentityTokenLifetime = model.IdentityTokenLifetime;
+
                     var user = await _users.FindUserAsync(model.Username, cancellationToken);
 
                     await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.UserName, user.UserName, clientId: context?.ClientId));

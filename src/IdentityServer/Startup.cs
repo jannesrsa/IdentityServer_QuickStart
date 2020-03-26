@@ -66,6 +66,7 @@ namespace IdentityServer
             services.AddAutoMapper(options =>
             {
                 options.AddProfile<CustomUserManagerRepository.Mappings.AutoMapperProfile>();
+                options.AddProfile<Mappings.AutoMapperProfile>();
             }, new Assembly[] { });
 
             services.AddSingleton<IConnectionProvider, ConnectionProvider>();

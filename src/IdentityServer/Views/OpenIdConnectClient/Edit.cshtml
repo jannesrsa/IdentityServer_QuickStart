@@ -1,0 +1,54 @@
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model IdentityServer.Models.OpenIdConnectClientViewModel
+
+@{
+    ViewData["Title"] = "OpenID Connect Client";
+}
+
+<h2>OpenID Connect Client</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-lg-6">
+            <form asp-action="Edit">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="ClientID" class="control-label"></label>
+                    <input asp-for="ClientID" class="form-control" />
+                    <span asp-validation-for="ClientID" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="IdentityTokenLifetime" class="control-label"></label>
+                    <input asp-for="IdentityTokenLifetime" class="form-control" />
+                    <span asp-validation-for="IdentityTokenLifetime" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="RedirectUris" class="control-label"></label>
+                    <textarea asp-for="RedirectUris" rows="2" class="form-control"></textarea>
+                    <span asp-validation-for="RedirectUris" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PostLogoutRedirectUris" class="control-label"></label>
+                    <textarea asp-for="PostLogoutRedirectUris" rows="2" class="form-control"></textarea>
+                    <span asp-validation-for="PostLogoutRedirectUris" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="button" value="Reset to default " class="btn btn-default" onclick="location.href='@Url.Action("Reset", "OpenIdConnectClient")'" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

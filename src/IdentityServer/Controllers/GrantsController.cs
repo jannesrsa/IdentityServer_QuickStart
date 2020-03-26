@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer.Helpers;
-using IdentityServer.Models;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Services;
@@ -22,10 +21,10 @@ namespace IdentityServer.Controllers
     [Authorize]
     public class GrantsController : Controller
     {
-        private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clients;
-        private readonly IResourceStore _resources;
         private readonly IEventService _events;
+        private readonly IIdentityServerInteractionService _interaction;
+        private readonly IResourceStore _resources;
 
         public GrantsController(IIdentityServerInteractionService interaction,
             IClientStore clients,

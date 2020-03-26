@@ -20,7 +20,7 @@ namespace IdentityServer
             var configClient = configClients.GetChildren().FirstOrDefault();
 
             var siteUri = configClient.GetValue<string>("SiteUri").TrimEnd('/');
-            DynamicClientStore.Client = new Client
+            DynamicClientStore.SetConfigClient(new Client
             {
                 ClientId = configClient.GetValue<string>("ClientId"),
                 AllowedGrantTypes = { configClient.GetValue<string>("AllowedGrantTypes") },
@@ -38,7 +38,7 @@ namespace IdentityServer
                 RequireConsent = false,
                 AlwaysSendClientClaims = true,
                 IdentityTokenLifetime = configClient.GetValue<int>("IdentityTokenLifetime")
-            };
+            });
         }
 
         public IEnumerable<ApiResource> Apis =>

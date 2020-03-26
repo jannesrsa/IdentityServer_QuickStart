@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IdentityServer.Models
+namespace IdentityServer
 {
     public class LoginViewModel : LoginInputModel
     {

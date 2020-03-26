@@ -3,7 +3,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace IdentityServer.Models
+namespace IdentityServer
 {
     public class LoginInputModel
     {
@@ -15,6 +15,5 @@ namespace IdentityServer.Models
 
         public bool RememberLogin { get; set; }
         public string ReturnUrl { get; set; }
-        public int IdentityTokenLifetime { get; set; }
     }
 }

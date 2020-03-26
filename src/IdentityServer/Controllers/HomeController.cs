@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Threading.Tasks;
+using IdentityServer.Helpers;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -15,8 +16,8 @@ namespace IdentityServer.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        private readonly IIdentityServerInteractionService _interaction;
         private readonly IWebHostEnvironment _environment;
+        private readonly IIdentityServerInteractionService _interaction;
         private readonly ILogger _logger;
 
         public HomeController(IIdentityServerInteractionService interaction, IWebHostEnvironment environment, ILogger<HomeController> logger)

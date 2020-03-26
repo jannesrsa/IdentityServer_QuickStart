@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using IdentityServer.Models;
 using IdentityServer4.Models;
 
 namespace IdentityServer.Mappings

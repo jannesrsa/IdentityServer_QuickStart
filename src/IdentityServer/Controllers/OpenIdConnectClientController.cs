@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using IdentityServer.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityServer.Controllers

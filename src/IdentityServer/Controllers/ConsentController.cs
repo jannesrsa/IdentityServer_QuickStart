@@ -3,7 +3,7 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using IdentityServer.Models;
+using IdentityServer.Helpers;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;

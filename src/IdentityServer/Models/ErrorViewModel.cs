@@ -3,7 +3,7 @@
 
 using IdentityServer4.Models;
 
-namespace IdentityServer
+namespace IdentityServer.Models
 {
     public class ErrorViewModel
     {

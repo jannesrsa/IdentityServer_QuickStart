@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IdentityServer
+namespace IdentityServer.Models
 {
     public class OpenIdConnectClientViewModel
     {

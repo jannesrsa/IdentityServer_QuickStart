@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace IdentityServer
+namespace IdentityServer.Models
 {
     public class ConsentInputModel
     {

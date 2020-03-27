@@ -15,12 +15,17 @@ namespace CustomUserManagerRepository.Dto
         {
             get
             {
-                return new Claim[]
+                var claims = new List<Claim>()
                 {
                     new Claim("preferred_username", UserName),
-                    new Claim("name", DisplayName),
-                    new Claim("email", UserEmail)
+                    new Claim("name", !string.IsNullOrEmpty(DisplayName)?DisplayName:UserName)
                 };
+                if (!string.IsNullOrEmpty(UserEmail))
+                {
+                    claims.Add(new Claim("email", UserEmail));
+                }
+                
+                return claims.ToArray();
             }
         }
     }

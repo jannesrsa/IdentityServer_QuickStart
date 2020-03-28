@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace CustomUserManagerRepository.Model
 {
@@ -26,6 +23,7 @@ namespace CustomUserManagerRepository.Model
 
         [MaxLength(200)]
         public string UserEmail { get; set; }
+
         public int? ManagerID { get; set; }
 
         [MaxLength(200)]

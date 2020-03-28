@@ -19,21 +19,12 @@ namespace IdentityServer
             IConfigurationSection configClients = _config.GetSection("Clients");
             var configClient = configClients.GetChildren().FirstOrDefault();
 
-            var siteUri = configClient.GetValue<string>("SiteUri").TrimEnd('/');
             DynamicClientStore.SetConfigClient(new Client
             {
                 ClientId = configClient.GetValue<string>("ClientId"),
                 AllowedGrantTypes = { configClient.GetValue<string>("AllowedGrantTypes") },
-                RedirectUris =
-                        {
-                            $"{siteUri}/designer/account/signin-oidc",
-                            $"{siteUri}/runtime/account/signin-oidc"
-                        },
-                PostLogoutRedirectUris =
-                        {
-                            $"{siteUri}/designer/account/signout-callback-oidc",
-                            $"{siteUri}/runtime/account/signout-callback-oidc"
-                        },
+                RedirectUris = configClient.GetSection("RedirectUris").Get<string[]>(),
+                PostLogoutRedirectUris = configClient.GetSection("PostLogoutRedirectUris").Get<string[]>(),
                 AllowedScopes = configClient.GetSection("AllowedScopes").Get<string[]>(),
                 RequireConsent = false,
                 AlwaysSendClientClaims = true,

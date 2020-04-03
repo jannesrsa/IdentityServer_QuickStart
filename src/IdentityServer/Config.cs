@@ -19,6 +19,12 @@ namespace IdentityServer
             IConfigurationSection configClients = _config.GetSection("Clients");
             var configClient = configClients.GetChildren().FirstOrDefault();
 
+            var identityTokenLifeTime = configClient.GetValue<int>("IdentityTokenLifetime");
+            if (identityTokenLifeTime == 0)
+            {
+                identityTokenLifeTime = Defaults.IdentityTokenLifeTime;
+            }
+
             DynamicClientStore.SetConfigClient(new Client
             {
                 ClientId = configClient.GetValue<string>("ClientId"),
@@ -28,7 +34,7 @@ namespace IdentityServer
                 AllowedScopes = configClient.GetSection("AllowedScopes").Get<string[]>(),
                 RequireConsent = false,
                 AlwaysSendClientClaims = true,
-                IdentityTokenLifetime = configClient.GetValue<int>("IdentityTokenLifetime")
+                IdentityTokenLifetime = identityTokenLifeTime
             });
         }
 
